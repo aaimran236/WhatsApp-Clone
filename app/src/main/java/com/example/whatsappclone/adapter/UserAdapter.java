@@ -43,7 +43,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         Users user=mUsers.get(position);
         holder.username.setText(user.getUsername());
         if (user.getImageURL().equals("default")){
-            holder.imageView.setImageResource(R.mipmap.ic_launcher);
+            holder.imageView.setImageResource(R.drawable.whatsapp);
         }else{
             Glide.with(context)
                     .load(user.getImageURL())

@@ -36,8 +36,9 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     ///firebase
-    FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference myRef;
+    private NetworkAvailability availability = new NetworkAvailability(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,32 +47,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Tab layout and ViewPager
-        TabLayout tabLayout=findViewById(R.id.tabLayout);
-        ViewPager viewPager=findViewById(R.id.viewPager);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        ViewPager viewPager = findViewById(R.id.viewPager);
 
-        ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new ChatFragment(),"Chats");
-        viewPagerAdapter.addFragment(new UsersFragment(),"Users");
-        viewPagerAdapter.addFragment(new ProfileFragment(),"Profile");
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new ChatFragment(), "Chats");
+        viewPagerAdapter.addFragment(new UsersFragment(), "Users");
+        viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
+
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        if (!availability.isNetWorkAvailable()) {
+            Toast.makeText(this, "Internet Connection is not available", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId()==R.id.logout){
+        if (item.getItemId() == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
-            Intent i=new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent i = new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
             finish();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -80,10 +86,11 @@ public class MainActivity extends AppCompatActivity {
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private ArrayList<Fragment> fragments;
         private ArrayList<String> titles;
+
         public ViewPagerAdapter(@NonNull FragmentManager fm) {
             super(fm);
-            this.fragments=new ArrayList<>();
-            this.titles=new ArrayList<>();
+            this.fragments = new ArrayList<>();
+            this.titles = new ArrayList<>();
         }
 
         @NonNull
@@ -97,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             return fragments.size();
         }
 
-        public void addFragment(Fragment fragment,String title){
+        public void addFragment(Fragment fragment, String title) {
             fragments.add(fragment);
             titles.add(title);
         }
@@ -109,11 +116,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void checkStatus(String status){
-        myRef= FirebaseDatabase.getInstance().getReference("MyUsers")
+    public void checkStatus(String status) {
+        myRef = FirebaseDatabase.getInstance().getReference("MyUsers")
                 .child(firebaseUser.getUid());
-        HashMap<String,Object> map=new HashMap<>();
-        map.put("status",status);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("status", status);
         myRef.updateChildren(map);
     }
 
@@ -128,10 +135,12 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         checkStatus("offline");
     }
-}
 
-///FragmentStateAdapter alternative to FragmentPagerAdapter
-//    class ViewPagerNew extends FragmentStateAdapter{
+
+}
+    ///FragmentStateAdapter alternative to FragmentPagerAdapter
+
+//    class ViewPagerNew extends FragmentStateAdapter {
 //
 //
 //        public ViewPagerNew(@NonNull FragmentActivity fragmentActivity) {

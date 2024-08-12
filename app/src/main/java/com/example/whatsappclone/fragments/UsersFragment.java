@@ -55,17 +55,19 @@ public class UsersFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 mUsers.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Users user = dataSnapshot.getValue(Users.class);
-                    assert user != null;
+
                     if (!user.getId().equals(firebaseUser.getUid())) {
                         mUsers.add(user);
                     }
+
 //                            userAdapter=new UserAdapter(getContext(),mUsers);
 //                            recyclerView.setAdapter(userAdapter);
                 }
-                userAdapter = new UserAdapter(getContext(), mUsers,false);
+                userAdapter = new UserAdapter(getContext(), mUsers, false);
                 recyclerView.setAdapter(userAdapter);
             }
 

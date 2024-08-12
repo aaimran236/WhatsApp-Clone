@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -33,16 +34,18 @@ public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private DatabaseReference myRef;
+    private TextView loginTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /// EdgeToEdge.enable(this);
+       EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
 
         nameET=findViewById(R.id.userEditText);
         passwordET=findViewById(R.id.passEditText);
         emailET=findViewById(R.id.emailEditText);
         registerButton=findViewById(R.id.buttonRegister);
+        loginTextView=findViewById(R.id.login_text_view);
 
         //Firebase Auth
         auth=FirebaseAuth.getInstance();
@@ -61,6 +64,14 @@ public class RegisterActivity extends AppCompatActivity {
                 }else {
                     registerNow(user_text,email_text,password_text);
                 }
+            }
+        });
+
+        loginTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -40,6 +40,7 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 
 public class ProfileFragment extends Fragment {
@@ -81,11 +82,11 @@ public class ProfileFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Users user=snapshot.getValue(Users.class);
+                Users user = snapshot.getValue(Users.class);
                 username.setText(user.getUsername());
-                if (user.getImageURL().equals("default")){
+                if (user.getImageURL().equals("default")) {
                     imageView.setImageResource(R.mipmap.ic_launcher);
-                }else{
+                } else {
                     Glide.with(getContext())
                             .load(user.getImageURL())
                             .into(imageView);

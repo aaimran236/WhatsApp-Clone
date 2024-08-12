@@ -180,6 +180,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mChats.clear();
+
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Chat chat = dataSnapshot.getValue(Chat.class);
                     if (chat.getReceiver().equals(myId) && chat.getSender().equals(userId) ||

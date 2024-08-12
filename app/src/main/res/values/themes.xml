@@ -3,7 +3,7 @@
     <style name="Base.Theme.WhatsAppClone" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">#0EAF62</item>
-        <item name="colorPrimaryDark">#0EAF62</item>
+
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
