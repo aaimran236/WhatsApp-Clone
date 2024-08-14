@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton, registerButton;
     private FirebaseAuth auth;
     private FirebaseUser firebaseUser;
+    private TextView forgotPass;
 
 
     @Override
@@ -44,12 +46,14 @@ public class LoginActivity extends AppCompatActivity {
         passETLogin = findViewById(R.id.editTextTextPassword);
         loginButton = findViewById(R.id.buttonLogin);
         registerButton = findViewById(R.id.registerBtn);
+        forgotPass=findViewById(R.id.forgetPassText);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -79,6 +83,15 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             });
                 }
+            }
+        });
+
+        forgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(LoginActivity.this, ForgetPassActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
