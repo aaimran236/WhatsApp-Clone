@@ -1,11 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.WhatsAppClone" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Base.Theme.WhatsAppClone" parent="Theme.AppCompat.DayNight">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">#0EAF62</item>
+<!--        <item name="colorPrimary">#0EAF62</item> -->
+        <item name="colorPrimary">@color/white</item>
 
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/white</item>
+        <!-- Dark icons (appear as grey on the light grey background) -->
+        <item name="android:windowLightStatusBar">true</item>
     </style>
+
 
     <style name="Theme.WhatsAppClone" parent="Base.Theme.WhatsAppClone" />
 </resources>

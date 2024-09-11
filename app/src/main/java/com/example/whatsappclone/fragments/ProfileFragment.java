@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -56,7 +57,7 @@ public class ProfileFragment extends Fragment {
     private static final int IMAGE_REQUEST=1;
     private Uri imageUri;
     private StorageTask uploadTask;
-
+    private FloatingActionButton fab;
 
 
     public ProfileFragment() {
@@ -69,8 +70,9 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_profile,container,false);
 
-        username =view.findViewById(R.id.usernamer);
+        username =view.findViewById(R.id.user_name);
         imageView=view.findViewById(R.id.profile_image2);
+        fab=view.findViewById(R.id.fab_change_image);
 
         ///profile image reference in storage
         storageReference= FirebaseStorage.getInstance().getReference("uploads");
@@ -84,7 +86,7 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users user = snapshot.getValue(Users.class);
                 username.setText(user.getUsername());
-                if (user.getImageURL().equals("default")) {
+                if (user.getImageURL().equals("default") | user.getImageURL()==null) {
                     imageView.setImageResource(R.mipmap.ic_launcher);
                 } else {
                     Glide.with(getContext())
@@ -99,7 +101,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectImage();

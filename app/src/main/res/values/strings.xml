@@ -2,4 +2,6 @@
     <string name="app_name">WhatsApp Clone</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="userNameInfo">This is your username. This name will be visible to your ChatApp contacts.</string>
+
 </resources>
