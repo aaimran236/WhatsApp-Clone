@@ -61,7 +61,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(user_text) || TextUtils.isEmpty(email_text) || TextUtils.isEmpty(password_text)){
                     Toast.makeText(RegisterActivity.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
-                }else {
+                }
+                if (user_text.length()>20){
+                    Toast.makeText(RegisterActivity.this, "Name should contain less than 20 characters", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     registerNow(user_text,email_text,password_text);
                 }
             }
